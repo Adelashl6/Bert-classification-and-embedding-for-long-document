@@ -122,8 +122,6 @@ if __name__ == "__main__":
     dataset = PDataset(all_df, args.mode, args.task)
     dataloader = DataLoader(dataset, shuffle=False, batch_size=args.batch_size)
 
-    # story_ids, chunk_nums, predictions = test(model, dataloader)
-    # inference(story_ids, chunk_nums, predictions, save_results=args.save_result, fname=args.save_file)
     story_ids, chunk_nums, embeddings = inference(model, dataloader)
     
     # predict labels for each document

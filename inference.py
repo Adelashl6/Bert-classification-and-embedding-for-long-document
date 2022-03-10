@@ -101,7 +101,6 @@ if __name__ == "__main__":
 
     # load model
     bert_path = args.output_dir
-    # bert_path = 'bert-base-uncased'
     model = BertForSequenceClassification.from_pretrained(
         bert_path,  # Use the 12-layer BERT model, with an uncased vocab.
         num_labels=args.num_labels,  # The number of output labels--2 for binary classification.
@@ -126,6 +125,10 @@ if __name__ == "__main__":
     # story_ids, chunk_nums, predictions = test(model, dataloader)
     # inference(story_ids, chunk_nums, predictions, save_results=args.save_result, fname=args.save_file)
     story_ids, chunk_nums, embeddings = inference(model, dataloader)
-    inference_labels(story_ids, chunk_nums, predictions, save_results=args.save_result, fname="inference.csv"):
+    
+    # predict labels for each document
+    inference_labels(story_ids, chunk_nums, predictions, save_results=args.save_result, fname="inference.csv")
+    
+    # extract bert embedings for each document
     inference_representations(story_ids, chunk_nums, embeddings, save_results=args.save_result, fname=args.save_file)
 

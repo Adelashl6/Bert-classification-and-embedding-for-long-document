@@ -80,8 +80,7 @@ if __name__ == "__main__":
     os.environ['CUDA_VISIBLE_DEVICES'] = '0'
     parser = argparse.ArgumentParser(description='Train a Bert Classifier')
     parser.add_argument('--batch_size', type=int, default=256)
-    parser.add_argument('--mode', type=str, default="test")
-    parser.add_argument('--task', type=str, default="other", help="choose the classification task")
+    parser.add_argument('--task', type=str, default="propaganda", help="choose the classification task")
     parser.add_argument('--output_dir', type=str, default="./propaganda_model_new/5")
     parser.add_argument('--save_file', type=str, default="propaganda_embedding.pkl")
     parser.add_argument('--num_labels', type=int, default=3, help='Number of labels to fine tune BERT on')

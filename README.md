@@ -14,5 +14,5 @@ Predict labels and extract bert embeddings \
 ## Data Format
 
 document_id  | raw_text | label
-------------- | ------------- | -------------
+| :-: | :-: | :-: |
 integer  | string | integer

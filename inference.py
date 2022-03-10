@@ -62,7 +62,7 @@ def inference_representations(story_ids, chunk_nums, embeddings, save_results=Fa
     df = pd.DataFrame({"id": story_ids, "chunk_num": chunk_nums, "embeddings": embeddings})
     all_test_ids = df["id"].unique()
 
-    '''
+    
     final_annotation = {}
     for idx in range(len(all_test_ids)):
         cur_id = all_test_ids[idx]
@@ -74,7 +74,7 @@ def inference_representations(story_ids, chunk_nums, embeddings, save_results=Fa
     if save_results:
         with open(fname, 'wb') as file:
             pickle.dump(final_annotation, file)
-    '''
+    
     if save_results:
         with open(fname, 'wb') as file:
             pickle.dump(df, file)

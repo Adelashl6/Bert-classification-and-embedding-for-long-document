@@ -108,7 +108,7 @@ def test(model, dataloader):
     return story_ids, chunk_nums, predictions, labels
 
 
-def inference(story_ids, chunk_nums, predictions, labels, save_results=False, fname="test.csv"):
+def test_accuracy_result(story_ids, chunk_nums, predictions, labels, save_results=False, fname="test.csv"):
     df = pd.DataFrame({"id": story_ids, "chunk_num": chunk_nums, "bert_classification": predictions, "label":labels})
     all_test_ids = df["id"].unique()
     uni_story_ids = []
@@ -193,6 +193,6 @@ if __name__ == "__main__":
         dataset = PDataset(test_df, args.mode, args.task)
         dataloader = DataLoader(dataset, shuffle=False, batch_size=args.batch_size)
         story_ids, chunk_nums, predictions, labels = test(model, dataloader)
-        inference(story_ids, chunk_nums, predictions, labels, save_results=args.save_result, fname=args.save_file)
+        test_accuracy_resul(story_ids, chunk_nums, predictions, labels, save_results=args.save_result, fname=args.save_file)
 
 

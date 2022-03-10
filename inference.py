@@ -112,11 +112,11 @@ if __name__ == "__main__":
     if torch.cuda.is_available():
         device = torch.device("cuda")
 
-    # num_gpus = torch.cuda.device_count()
-    # print('There are %d GPU(s) available.' % num_gpus)
+    num_gpus = torch.cuda.device_count()
+    print('There are %d GPU(s) available.' % num_gpus)
 
-    # if num_gpus > 1:
-    # model = nn.DataParallel(model).to(device)
+    if num_gpus > 1:
+        model = nn.DataParallel(model).to(device)
     mode = model.to(device)
 
     dataset = PDataset(all_df, args.mode, args.task)

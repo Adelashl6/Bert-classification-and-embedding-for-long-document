@@ -11,7 +11,7 @@ import pickle
 import os
 import torch.nn.functional as F
 
-def test(model, dataloader):
+def inference(model, dataloader):
     model.eval()
     story_ids = []
     chunk_nums = []
@@ -41,7 +41,7 @@ def test(model, dataloader):
     return story_ids, chunk_nums, embeddings # predictions
 
 
-def inference(story_ids, chunk_nums, predictions, save_results=False, fname="test.csv"):
+def inference_labels(story_ids, chunk_nums, predictions, save_results=False, fname="inference.csv"):
     df = pd.DataFrame({"id": story_ids, "chunk_num": chunk_nums, "bert_classification": predictions})
     all_test_ids = df["id"].unique()
     uni_story_ids = []
@@ -58,7 +58,7 @@ def inference(story_ids, chunk_nums, predictions, save_results=False, fname="tes
         save_df.to_csv(fname)
 
 
-def inference_representations(story_ids, chunk_nums, embeddings, save_results=False, fname="test.csv"):
+def inference_representations(story_ids, chunk_nums, embeddings, save_results=False, fname="inference.csv"):
     df = pd.DataFrame({"id": story_ids, "chunk_num": chunk_nums, "embeddings": embeddings})
     all_test_ids = df["id"].unique()
 
@@ -75,9 +75,6 @@ def inference_representations(story_ids, chunk_nums, embeddings, save_results=Fa
         with open(fname, 'wb') as file:
             pickle.dump(final_annotation, file)
     
-    if save_results:
-        with open(fname, 'wb') as file:
-            pickle.dump(df, file)
 
 if __name__ == "__main__":
     os.environ['CUDA_VISIBLE_DEVICES'] = '0'
@@ -128,6 +125,7 @@ if __name__ == "__main__":
 
     # story_ids, chunk_nums, predictions = test(model, dataloader)
     # inference(story_ids, chunk_nums, predictions, save_results=args.save_result, fname=args.save_file)
-    story_ids, chunk_nums, embeddings = test(model, dataloader)
+    story_ids, chunk_nums, embeddings = inference(model, dataloader)
+    inference_labels(story_ids, chunk_nums, predictions, save_results=args.save_result, fname="inference.csv"):
     inference_representations(story_ids, chunk_nums, embeddings, save_results=args.save_result, fname=args.save_file)
 

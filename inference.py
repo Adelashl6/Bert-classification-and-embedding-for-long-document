@@ -82,7 +82,8 @@ if __name__ == "__main__":
     parser.add_argument('--batch_size', type=int, default=256)
     parser.add_argument('--task', type=str, default="propaganda", help="choose the classification task")
     parser.add_argument('--output_dir', type=str, default="./propaganda_model_new/5")
-    parser.add_argument('--save_file', type=str, default="propaganda_embedding.pkl")
+    parser.add_argument('--save_file_label', type=str, default="propaganda_label.csv")
+    parser.add_argument('--save_file_embedding', type=str, default="propaganda_embedding.pkl")
     parser.add_argument('--num_labels', type=int, default=3, help='Number of labels to fine tune BERT on')
     parser.add_argument('--data_path', type=str, default='./new_split/propaganda_blog.csv',
                         help='Training/Testing DataFrame')
@@ -124,8 +125,8 @@ if __name__ == "__main__":
     story_ids, chunk_nums, embeddings = inference(model, dataloader)
     
     # predict labels for each document
-    inference_labels(story_ids, chunk_nums, predictions, save_results=args.save_result, fname="inference.csv")
+    inference_labels(story_ids, chunk_nums, predictions, save_results=args.save_result, fname=args.save_file_label)
     
     # extract bert embedings for each document
-    inference_representations(story_ids, chunk_nums, embeddings, save_results=args.save_result, fname=args.save_file)
+    inference_representations(story_ids, chunk_nums, embeddings, save_results=args.save_result, fname=args.save_file_embedding)
 
